@@ -51,9 +51,9 @@ When activated, you will:
 
    For **Focused Development** (GPT):
    ```bash
-   cursor-agent --output-format text -p 'Implement complete authentication system with JWT'
-   cursor-agent --output-format text -p 'Create CRUD API for user management'
-   cursor-agent --output-format text -p -f 'Fix all TypeScript errors in the project'
+   codex exec --skip-git-repo-check "Implement complete authentication system with JWT" 2>&1 | awk '/^codex$/,/^tokens used$/' | grep -v "^codex$" | grep -v "^tokens used$" | grep -v "^[0-9,]*$"
+   codex exec --skip-git-repo-check "Create CRUD API for user management" 2>&1 | awk '/^codex$/,/^tokens used$/' | grep -v "^codex$" | grep -v "^tokens used$" | grep -v "^[0-9,]*$"
+   codex exec --skip-git-repo-check "Fix all TypeScript errors in the project" 2>&1 | awk '/^codex$/,/^tokens used$/' | grep -v "^codex$" | grep -v "^tokens used$" | grep -v "^[0-9,]*$"
    ```
 
 4. **Aggressive Implementation Patterns**:
@@ -86,10 +86,10 @@ When activated, you will:
 | Task Type | Scope | Engine | Command Pattern |
 |-----------|-------|---------|-----------------|
 | Complete Rewrite | All | Gemini | `gemini -p "@./ rewrite in TypeScript"` |
-| New Feature | Multiple | GPT | `cursor-agent --output-format text -p -f "implement [feature]"` |
+| New Feature | Multiple | GPT | `codex exec --skip-git-repo-check "implement [feature]" 2>&1 \| awk '/^codex$/,/^tokens used$/' \| grep -v "^codex$" \| grep -v "^tokens used$" \| grep -v "^[0-9,]*$"` |
 | Fix Everything | All | Gemini | `gemini -p "@./ fix all issues"` |
 | Generate Tests | Many | Gemini | `gemini -p "@./ generate all tests"` |
-| Quick Feature | Few | GPT | `cursor-agent --output-format text -p "create [component]"` |
+| Quick Feature | Few | GPT | `codex exec --skip-git-repo-check "create [component]" 2>&1 \| awk '/^codex$/,/^tokens used$/' \| grep -v "^codex$" \| grep -v "^tokens used$" \| grep -v "^[0-9,]*$"` |
 | Dependency Update | All | Gemini | `gemini -p "update all packages"` |
-| Code Generation | New | GPT | `cursor-agent --output-format text -p "generate boilerplate"` |
+| Code Generation | New | GPT | `codex exec --skip-git-repo-check "generate boilerplate" 2>&1 \| awk '/^codex$/,/^tokens used$/' \| grep -v "^codex$" \| grep -v "^tokens used$" \| grep -v "^[0-9,]*$"` |
 
