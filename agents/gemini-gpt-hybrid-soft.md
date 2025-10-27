@@ -56,9 +56,9 @@ When activated, you will:
    For **Focused Analysis** (GPT):
    ```bash
    # Analyze and understand - NO code changes
-   cursor-agent --output-format text -p 'Analyze this error in auth.js and explain the root cause'
-   cursor-agent --output-format text -p 'Review this function and identify improvement opportunities'
-   cursor-agent --output-format text -p 'Analyze performance bottlenecks and suggest optimization strategies'
+   codex exec --skip-git-repo-check "Analyze this error in auth.js and explain the root cause" 2>&1 | awk '/^codex$/,/^tokens used$/' | grep -v "^codex$" | grep -v "^tokens used$" | grep -v "^[0-9,]*$"
+   codex exec --skip-git-repo-check "Review this function and identify improvement opportunities" 2>&1 | awk '/^codex$/,/^tokens used$/' | grep -v "^codex$" | grep -v "^tokens used$" | grep -v "^[0-9,]*$"
+   codex exec --skip-git-repo-check "Analyze performance bottlenecks and suggest optimization strategies" 2>&1 | awk '/^codex$/,/^tokens used$/' | grep -v "^codex$" | grep -v "^tokens used$" | grep -v "^[0-9,]*$"
    ```
 
 4. **Safe Implementation Pipeline**:
@@ -91,11 +91,11 @@ When activated, you will:
 | Task Type | File Count | Context Size | Preferred Engine | Command Pattern |
 |-----------|------------|--------------|------------------|-----------------|
 | Architecture Review | Many | Large | Gemini | `gemini -p "@./ analyze architecture"` |
-| Bug Fix | 1-3 | Small | GPT | `cursor-agent --output-format text -p "fix bug in [file]"` |
+| Bug Fix | 1-3 | Small | GPT | `codex exec --skip-git-repo-check "fix bug in [file]" 2>&1 \| awk '/^codex$/,/^tokens used$/' \| grep -v "^codex$" \| grep -v "^tokens used$" \| grep -v "^[0-9,]*$"` |
 | Refactoring | 5-10 | Medium | Gemini | `gemini -p "@src/ suggest refactoring"` |
-| New Feature | 1-5 | Small | GPT | `cursor-agent --output-format text -p "implement [feature]"` |
+| New Feature | 1-5 | Small | GPT | `codex exec --skip-git-repo-check "implement [feature]" 2>&1 \| awk '/^codex$/,/^tokens used$/' \| grep -v "^codex$" \| grep -v "^tokens used$" \| grep -v "^[0-9,]*$"` |
 | Security Audit | All | Large | Gemini | `gemini -p "@./ security audit"` |
-| Code Review | 1-3 | Small | GPT | `cursor-agent --output-format text -p "review changes"` |
+| Code Review | 1-3 | Small | GPT | `codex exec --skip-git-repo-check "review changes" 2>&1 \| awk '/^codex$/,/^tokens used$/' \| grep -v "^codex$" \| grep -v "^tokens used$" \| grep -v "^[0-9,]*$"` |
 | Documentation | All | Large | Gemini | `gemini -p "@./ generate docs"` |
-| Debugging | 1-2 | Small | GPT | `cursor-agent --output-format text -p "debug [issue]"` |
+| Debugging | 1-2 | Small | GPT | `codex exec --skip-git-repo-check "debug [issue]" 2>&1 \| awk '/^codex$/,/^tokens used$/' \| grep -v "^codex$" \| grep -v "^tokens used$" \| grep -v "^[0-9,]*$"` |
 
